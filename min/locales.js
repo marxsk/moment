@@ -1444,6 +1444,7 @@
     //! moment.js locale configuration
 
     var months$2 = 'leden_únor_březen_duben_květen_červen_červenec_srpen_září_říjen_listopad_prosinec'.split('_'),
+        monthsGenitive = 'ledna_února_března_dubna_května_června_července_srpna_září_října_listopadu_prosince'.split('_'),
         monthsShort = 'led_úno_bře_dub_kvě_čvn_čvc_srp_zář_říj_lis_pro'.split('_');
     function plural$1(n) {
         return (n > 1) && (n < 5) && (~~(n / 10) !== 1);
@@ -1510,12 +1511,13 @@
 
     moment.defineLocale('cs', {
         months : months$2,
+        monthsGenitive: monthsGenitive,
         monthsShort : monthsShort,
         monthsParse : (function (months, monthsShort) {
             var i, _monthsParse = [];
             for (i = 0; i < 12; i++) {
                 // use custom parser to solve problem with July (červenec)
-                _monthsParse[i] = new RegExp('^' + months[i] + '$|^' + monthsShort[i] + '$', 'i');
+                _monthsParse[i] = new RegExp('^' + months[i] + '$|^' + monthsGenitive[i] + '$|^' + monthsShort[i] + '$', 'i');
             }
             return _monthsParse;
         }(months$2, monthsShort)),
@@ -1529,7 +1531,7 @@
         longMonthsParse : (function (months) {
             var i, _longMonthsParse = [];
             for (i = 0; i < 12; i++) {
-                _longMonthsParse[i] = new RegExp('^' + months[i] + '$', 'i');
+                _longMonthsParse[i] = new RegExp('^' + months[i] + '$|^' + monthsGenitive[i] + '$', 'i');
             }
             return _longMonthsParse;
         }(months$2)),
